@@ -24,7 +24,7 @@ export default function VerifyOtpPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch('http://localhost:4000/api/verify-otp', {
+      const res = await fetch(`${process.env.BASE_URL}/api/verify-otp'`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp }),
