@@ -40,7 +40,7 @@ const app = express();
 // Middleware
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:3000", // Frontend origin
+  origin: "https://meditation-frontend-01o4.onrender.com", // Frontend origin
   credentials: true
 }));
 
