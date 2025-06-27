@@ -1,14 +1,14 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, FormEvent, ChangeEvent } from 'react';
 import Image from "next/image";
 import { Button } from "@mui/material";
 import toast from "react-hot-toast";
 
 export default function VerifyOtpPage() {
-  const [otp, setOtp] = useState('');
-  const [email, setEmail] = useState('');
+  const [otp, setOtp] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
   const router = useRouter();
 
   useEffect(() => {
@@ -20,11 +20,11 @@ export default function VerifyOtpPage() {
     }
   }, []);
 
-  const handleVerify = async (e) => {
+  const handleVerify = async (e: FormEvent) => {
     e.preventDefault();
 
     try {
-      const res = await fetch(`${process.env.BASE_URL}/api/verify-otp'`, {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp }),
@@ -68,16 +68,16 @@ export default function VerifyOtpPage() {
                   <input
                     key={index}
                     type="text"
-                    maxLength="1"
+                    maxLength={1}
                     className="w-12 h-12 bg-transparent border border-gray-600 rounded-full text-center text-white text-lg font-medium focus:outline-none focus:ring-2 focus:ring-blue-700"
-                    onChange={(e) => {
+                    onChange={(e: ChangeEvent<HTMLInputElement>) => {
                       const newOtp = otp.split('');
                       newOtp[index] = e.target.value;
                       setOtp(newOtp.join(''));
 
                       // Auto-focus next input
                       if (e.target.value && index < 5) {
-                        const nextInput = e.target.parentElement.children[index + 1];
+                        const nextInput = e.target.parentElement?.children[index + 1] as HTMLInputElement;
                         if (nextInput) nextInput.focus();
                       }
                     }}

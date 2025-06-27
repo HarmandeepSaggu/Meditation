@@ -7,7 +7,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       async authorize(credentials) {
         console.log('Sending credentials to backend:', credentials);
 
-        const res = await fetch(`${process.env.BASE_URL}/login`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(credentials),
